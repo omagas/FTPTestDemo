@@ -39,14 +39,10 @@ protected static FTPListTest instance = null;
     
     
     public static  void main(String[] args) throws FileNotFoundException, IOException, InterruptedException{
-        FTPListTest.getInstance();
+                FTPListTest.getInstance();
         
                 Properties pt=new PropertiesTool().getProperties("conf.properties");
-                String aa=pt.getProperty("ftp.server").toString();
-           
-                
-                //System.out.println(aa);
-                
+                String aa=pt.getProperty("ftp.server").toString();                                           
 		String server = pt.getProperty("ftp.server").toString();
 		int port = Integer.parseInt(pt.getProperty("ftp.port"));
 		String user = pt.getProperty("ftp.user").toString();
@@ -59,26 +55,28 @@ protected static FTPListTest instance = null;
                 ftpClient.connect(server, port);
                 ftpClient.login(user, pass);
                 ftpClient.enterLocalPassiveMode();
-                ftpClient.setFileType(FTP.BINARY_FILE_TYPE);    
-            mainLoop:    
+                ftpClient.setFileType(FTP.BINARY_FILE_TYPE);   
+                
+                int count=0;
+
+            mainLoop:  
             while(true){ 
-                Thread.sleep(12000); //間隔兩分鐘跑一次
+                Thread.sleep(2000); //間隔兩秒鐘跑一次
                 try {    
                         FTPFile[] subFiles = ftpClient.listFiles("/batN06");
-
+                        
                         if (subFiles != null && subFiles.length > 0) {
                             for (FTPFile aFile : subFiles) {      
-
-                                if(aFile.getName().contentEquals("IA")){
-                                    System.out.println("IA...../batN06/"+aFile.getName());
-                                }else{
+                                if(aFile.getName().indexOf("MA")!=-1){
+//                                    System.out.println("IA...../batN06/"+aFile.getName());
+//                                }else{
                                     System.out.println("MA.QA../batN06/"+aFile.getName());
                                     break mainLoop;//直接離開巢狀迴圈
-
                                 }
                             }
                         }else{
-                            System.out.println("No fiｌe");
+                            count++;
+                            System.out.println(count+" Try:"+" No file");
                         }
                 
                 } catch (SocketException ex) {
