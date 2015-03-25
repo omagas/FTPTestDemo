@@ -33,12 +33,8 @@ protected static FTPListTest instance = null;
         return instance;
     }    
     
-    
-    
- 
-    
-    
-    public static  void main(String[] args) throws FileNotFoundException, IOException, InterruptedException{
+     
+    public static  void  main(String[] args) throws FileNotFoundException, IOException, InterruptedException{
                 FTPListTest.getInstance();
         
                 Properties pt=new PropertiesTool().getProperties("conf.properties");
