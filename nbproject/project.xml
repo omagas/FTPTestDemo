@@ -2,7 +2,7 @@
     <type>org.netbeans.modules.java.j2seproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/j2se-project/3">
-            <name>FTPTest</name>
+            <name>FTPIntraNetBatchEngine</name>
             <source-roots>
                 <root id="src.properties.dir" name="Source properties"/>
                 <root id="src.src.dir" name="Source Packages"/>

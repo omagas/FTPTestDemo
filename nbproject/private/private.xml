@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Github/FTPTestDemo/src/FTPListTestZurich.java</file>
+            <file>file:/D:/Github/FTPTestDemo/src/FTPListTest_bk.java</file>
+            <file>file:/D:/Github/FTPTestDemo/src/FTPUploadFileDemo_bk.java</file>
             <file>file:/D:/Github/FTPTestDemo/properties/log4j.properties</file>
+            <file>file:/D:/Github/FTPTestDemo/src/com/zurich/lifeac/intra/control/FTPListTestZurich.java</file>
+            <file>file:/D:/Github/FTPTestDemo/src/com/zurich/lifeac/intra/control/FTPDownloadController.java</file>
+            <file>file:/D:/Github/FTPTestDemo/properties/conf.properties</file>
             <file>file:/D:/Github/FTPTestDemo/nbproject/build-impl.xml</file>
-            <file>file:/D:/Github/FTPTestDemo/src/FTPUploadFileDemo.java</file>
-            <file>file:/D:/Github/FTPTestDemo/src/FTPListTest.java</file>
         </group>
     </open-files>
 </project-private>
