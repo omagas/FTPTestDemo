@@ -48,12 +48,12 @@ private static Logger logger=Logger.getLogger(FTPListTestZurich.class);
                 
 
                 Properties pt=new PropertiesTool().getProperties("conf.properties");                                         
-		String server = pt.getProperty("ftp.server").toString();
-		int port = Integer.parseInt(pt.getProperty("ftp.port"));
-		String user = pt.getProperty("ftp.user").toString();
-		String pass = pt.getProperty("ftp.pass").toString();
+		String server = pt.getProperty("ftp.zurich.server").toString();
+		int port = Integer.parseInt(pt.getProperty("ftp.zurich.port"));
+		String user = pt.getProperty("ftp.zurich.user").toString();
+		String pass = pt.getProperty("ftp.zurich.pass").toString();
 
-                //System.out.println(server+":"+port+":"+user+":"+pass);
+                System.out.println(server+":"+port+":"+user+":"+pass);
                 
 		FTPClient ftpClient = new FTPClient();
         
