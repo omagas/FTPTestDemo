@@ -19,23 +19,23 @@ import org.apache.commons.net.ftp.FTPFile;
  *
  * @author louie.zheng
  */
-public class FTPListTest {
-protected static FTPListTest instance = null;
+public class FTPListTest_bk {
+protected static FTPListTest_bk instance = null;
     
-    private  FTPListTest()  {
+    private  FTPListTest_bk()  {
         System.out.println(this.getClass().getName());
     }
 
-    public static synchronized FTPListTest getInstance() {
+    public static synchronized FTPListTest_bk getInstance() {
         if (instance == null) {
-            instance = new FTPListTest();
+            instance = new FTPListTest_bk();
         }
         return instance;
     }    
     
      
     public static  void  main(String[] args) throws FileNotFoundException, IOException, InterruptedException{
-                FTPListTest.getInstance();
+                FTPListTest_bk.getInstance();
         
                 Properties pt=new PropertiesTool().getProperties("conf.properties");
                 String aa=pt.getProperty("ftp.server").toString();                                           
@@ -76,9 +76,9 @@ protected static FTPListTest instance = null;
                         }
                 
                 } catch (SocketException ex) {
-                    Logger.getLogger(FTPListTest.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(FTPListTest_bk.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
-                    Logger.getLogger(FTPListTest.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(FTPListTest_bk.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
             }

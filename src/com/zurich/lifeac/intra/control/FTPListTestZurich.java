@@ -1,9 +1,10 @@
+package com.zurich.lifeac.intra.control;
+
 
 import com.zuich.life.utility.PropertiesTool;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.SocketException;
-import java.util.logging.Level;
+import java.util.ArrayList;
 import org.apache.log4j.Logger;
 
 
@@ -60,24 +61,34 @@ private static Logger logger=Logger.getLogger(FTPListTestZurich.class);
                 ftpClient.connect(server, port);
                 ftpClient.login(user, pass);
                 ftpClient.enterLocalPassiveMode();
-                ftpClient.setFileType(FTP.BINARY_FILE_TYPE);   
-                
-                int count=0;
-   
-                        FTPFile[] subFiles = ftpClient.listFiles("/");
+                ftpClient.setFileType(FTP.BINARY_FILE_TYPE);  
+                System.out.println("Connected");
+                ArrayList<String> IAdir=new ArrayList();
+                IAdir.add("AS4");
+                IAdir.add("DIR");
+                IAdir.add("SDS");
+                int count=0;   
+                String fname;
+                for(String dir:IAdir){
+                    System.out.println("IN..."+dir);                
+//                for(int i=0;i<IAdir.size();i++){
+//                    System.out.println("....."+IAdir.get(i));
+//                }               
+                        FTPFile[] subFiles = ftpClient.listFiles("/"+dir);
                         
                         if (subFiles != null && subFiles.length > 0) {
                             for (FTPFile aFile : subFiles) {      
-
-                                    System.out.println("/"+aFile.getName());
-                                    
+                                    System.out.println("/"+dir+"/"+aFile.getName());
+                                     fname= aFile.getName();
+                                    if(fname.indexOf(".txt")!=-1){
+                                        
+                                    }
                             }
                         }else{
                             count++;
                             System.out.println(count+" Try:"+" No file");
-                        }
-                
-
+                        }                
+                }               
 
              System.out.println("Master, I'v finished the job");
     }    

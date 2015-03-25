@@ -16,7 +16,7 @@ import java.util.Properties;
  * to a remote FTP server using Apache Commons Net API.
  * @author www.codejava.net
  */
-public class FTPUploadFileDemo {
+public class FTPUploadFileDemo_bk {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
             
