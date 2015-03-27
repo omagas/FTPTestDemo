@@ -38,58 +38,64 @@ private static Logger logger=Logger.getLogger(FTPListTestZurich.class);
         }
         return instance;
     }    
-    
-    
-    
- 
-    
-    
+
     public static  void main(String[] args) throws FileNotFoundException, IOException, InterruptedException{
-                FTPListTestZurich.getInstance();
+        FTPListTestZurich.getInstance();
                 
+        Properties pt=new PropertiesTool().getProperties("conf.properties");                                         
+        String server = pt.getProperty("ftp.zurich.server").toString();
+        int port = Integer.parseInt(pt.getProperty("ftp.zurich.port"));
+        String user = pt.getProperty("ftp.zurich.user").toString();
+        String pass = pt.getProperty("ftp.zurich.pass").toString();
 
-                Properties pt=new PropertiesTool().getProperties("conf.properties");                                         
-		String server = pt.getProperty("ftp.zurich.server").toString();
-		int port = Integer.parseInt(pt.getProperty("ftp.zurich.port"));
-		String user = pt.getProperty("ftp.zurich.user").toString();
-		String pass = pt.getProperty("ftp.zurich.pass").toString();
+        System.out.println(server+":"+port+":"+user+":"+pass);
 
-                System.out.println(server+":"+port+":"+user+":"+pass);
-                
-		FTPClient ftpClient = new FTPClient();
+        //FTP CONNECT PART 
+        FTPClient ftpClient = new FTPClient();
+        ftpClient.connect(server, port);
+        ftpClient.login(user, pass);
+        ftpClient.enterLocalPassiveMode();
+        ftpClient.setFileType(FTP.BINARY_FILE_TYPE);  
+        System.out.println("Connected");
         
-                ftpClient.connect(server, port);
-                ftpClient.login(user, pass);
-                ftpClient.enterLocalPassiveMode();
-                ftpClient.setFileType(FTP.BINARY_FILE_TYPE);  
-                System.out.println("Connected");
-                ArrayList<String> IAdir=new ArrayList();
-                IAdir.add("AS4");
-                IAdir.add("DIR");
-                IAdir.add("SDS");
-                int count=0;   
-                String fname;
-                for(String dir:IAdir){
-                    System.out.println("IN..."+dir);                
+        
+        ArrayList<String> IAdir=new ArrayList();
+        IAdir.add("AS4");
+        IAdir.add("DIR");
+        IAdir.add("SDS");
+        int count=0;   
+                
+        //DOWNLOAD PART ---start---
+        DownloadZurichFTP DZftp=new DownloadZurichFTP();
+                
+        for(String dir:IAdir){
+            System.out.println("...........IN..."+dir);  
+
 //                for(int i=0;i<IAdir.size();i++){
 //                    System.out.println("....."+IAdir.get(i));
 //                }               
-                        FTPFile[] subFiles = ftpClient.listFiles("/"+dir);
-                        
-                        if (subFiles != null && subFiles.length > 0) {
-                            for (FTPFile aFile : subFiles) {      
-                                    System.out.println("/"+dir+"/"+aFile.getName());
-                                     fname= aFile.getName();
-                                    if(fname.indexOf(".txt")!=-1){
-                                        
-                                    }
-                            }
-                        }else{
-                            count++;
-                            System.out.println(count+" Try:"+" No file");
-                        }                
-                }               
+                FTPFile[] subFiles = ftpClient.listFiles("/"+dir);
 
-             System.out.println("Master, I'v finished the job");
+                if (subFiles != null && subFiles.length > 0) {
+                    for (FTPFile aFile : subFiles) { //TRACE 底下資料夾和檔案  
+                        if(aFile.isFile()){
+                            System.out.println("/"+dir+"/"+aFile.getName());
+                            DZftp.Controller(ftpClient,dir);
+                        }else {
+                            System.out.println("Not .txt file: "
+                                    + "/"+dir+"/"+aFile.getName());
+                        }
+                    }
+                }else{
+                    count++;
+                    System.out.println(count+" Try:"+" No file");
+                }                
+        }               
+        //DOWNLOAD PART ---end---
+        
+        ftpClient.logout();
+        ftpClient.disconnect();
+        System.out.println("Disconnected");
+        System.out.println("Master, I'v finished the job");
     }    
 }
